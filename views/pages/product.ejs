@@ -1,0 +1,12 @@
+<% include ../partials/header %>
+<div class="row">
+  <div class="medium-6 columns">
+    <img class="thumbnail" src="<%= product.image %>">
+  </div>
+  <div class="medium-6 large-5 columns">
+    <h3><%= product.name %></h3>
+    <p><%= product.description %></p>
+    <button id="<%= product.id %>" class="button large expanded add-item">Add to cart</button>
+  </div>
+</div>
+<% include ../partials/footer %>

@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+<div id="shopping-cart-container" class="row small-up-2 large-up-4">
+  <table id="cart" class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th style="width:60%">Product</th>
+        <th style="width:13%">Price</th>
+        <th style="width:13%">Quantity</th>
+        <th style="width:13%" class="text-center">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(function(product) { %>
+        <tr>
+          <td data-th="Product">
+            <div class="row">
+              <div class="large-2 columns">
+                <a href="/product/<%= product.id %>">
+                  <img src="<%= product.image %>"/>
+                </a>
+              </div>
+              <div class="large-10 columns">
+                <h4><%= product.name %></h4>
+                <p><%= product.description %></p>
+              </div>
+            </div>
+          </td>
+          <td>$ <%= product.price %></td>
+          <td><span><%= product.quantity %></span></td>
+          <td data-th="Subtotal" class="text-center">$ <%= (product.quantity *  product.price) %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<% include ../partials/footer %>

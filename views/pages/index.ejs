@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+<ul class="view">
+  <% products.forEach(function(product) { %>
+    <li class="large-3 column">
+      <a href="/product/<%= product.id %>">
+        <img class="thumbnail" src="<%= product.image %>">
+      </a>
+      <h5><%= product.name %></h5>
+      <p>$ <%= product.price %></p>
+      <p><%= product.description %></p>
+      <button id="<%= product.id %>" class="button expanded add-item">Add to cart</button>
+    </li>
+  <% }); %>
+</ul>
+<% include ../partials/footer %>
