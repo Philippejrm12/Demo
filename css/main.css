@@ -289,3 +289,13 @@ ul.view {
 ul.view .column:last-child:not(:first-child), .columns:last-child:not(:first-child) {
   float: none;
 }
+
+.error404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error404 h1 {
+  font-size: 48px;
+}

@@ -3,7 +3,7 @@ BM - Demo
 
 ## Requirements
 
-* Node > 4.0
+* Node >= v5.8.0
 
 ## Setup
 

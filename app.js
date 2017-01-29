@@ -50,6 +50,7 @@ app.get('/product/:id', function(req, res) {
       if(product) {
         res.render('pages/product', product);
       } else {
+        //return to product page if product doesn't exist
         res.redirect('/');
       }
     });
@@ -85,7 +86,7 @@ app.post('/add_item', urlencodedParser, function (req, res) {
 });
 
 app.use(function(req, res) {
-  res.status(404).end('error');
+  res.status(404).render('pages/404');
 });
 
 app.listen(3000, function () {
