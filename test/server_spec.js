@@ -15,21 +15,6 @@ describe("/add_item", function() {
     storage.removeItemSync('cart');
   });
 
-  it('it should return status ok when item added to cart', function(done) {
-    var status;
-    unirest.post(url)
-    .headers({
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    })
-    .send({ "product_id": 1 })
-    .end(function (response) {
-      status = response.body.status;
-      assert.equal("ok", status);
-      done();
-    });
-  });
-
   it('it should return status Internal Server Errror when item added to cart', function(done) {
     var status;
     unirest.post(url)
@@ -55,6 +40,21 @@ describe("/add_item", function() {
     .end(function (response) {
       status = response.body;
       assert.equal("Bad Request", status);
+      done();
+    });
+  });
+
+  it('it should return status ok when item added to cart', function(done) {
+    var status;
+    unirest.post(url)
+    .headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    })
+    .send({ "product_id": 1 })
+    .end(function (response) {
+      status = response.body.status;
+      assert.equal("ok", status);
       done();
     });
   });
