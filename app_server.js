@@ -5,11 +5,11 @@ var _ = require('lodash');
 var Utils = require('./helpers/utils.js');
 
 var jsonParser = bodyParser.json();
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var appServer = function () {
   var app = express();
   app.use(express.static(__dirname + '/'));
+  app.use(jsonParser);
   app.set('view engine', 'ejs');
 
   //home page / products page
@@ -59,9 +59,7 @@ var appServer = function () {
   });
 
   //add item to cart
-  app.post('/add_item', urlencodedParser, function (req, res) {
-    console.log('fsdafsdafsa dfsdaf sdafsdafsadfsdafsadfsda');
-    console.log(req.body);
+  app.post('/add_item', function (req, res) {
     if (!req.body.product_id) {
       return res.sendStatus(400);
     } else {

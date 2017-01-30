@@ -6,8 +6,9 @@ $(function() {
       url: '/add_item',
       type: 'POST',
       cache: false,
+      contentType : 'application/json',
       dataType: "json",
-      data: { product_id: productId },
+      data: JSON.stringify({ product_id: productId }),
       success: function(data){
         swal({
           title: "Cart",

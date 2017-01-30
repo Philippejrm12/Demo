@@ -1,13 +1,11 @@
 var assert = require('assert');
-var request = require('request-promise');
 var appServer = require('../app_server');
-var status = require('http-status');
 var storage = require('node-persist');
-var querystring = require('querystring');
-var http = require('http');
+var unirest = require('unirest');
 
-describe("/", function() {
+describe("/add_item", function() {
   var app;
+  var url = 'http://localhost:3000/add_item';
 
   before( function () {
     app = appServer();
@@ -17,42 +15,47 @@ describe("/", function() {
     storage.removeItemSync('cart');
   });
 
-  it('return list of products', function(done) {
-    var options = {
-      method: 'POST',
-      host: 'localhost',
-      port: '3000',
-      path: '/add_item',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    };
-
-
-    var req = http.request(options, function(response) {
-      response.on('data', function (chunk) {
-        console.log('Response: ' + chunk);
-      });
-
-      response.on('end', function() {
-        done();
-      });
+  it('it should return status ok when item added to cart', function(done) {
+    var status;
+    unirest.post(url)
+    .headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    })
+    .send({ "product_id": 1 })
+    .end(function (response) {
+      status = response.body.status;
+      assert.equal("ok", status);
+      done();
     });
-
-    req.write(JSON.stringify({product_id: '1'}));
-    req.end();
-
-    // request(options)
-    // .then(function (response) {
-    //   console.log(response.body);
-    // })
-    // .catch(function(err) {
-    // //  console.log(err);
-    // })
-    // .finally(function(){
-    //   done();
-    // });
-
   });
 
+  it('it should return status Internal Server Errror when item added to cart', function(done) {
+    var status;
+    unirest.post(url)
+    .headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    })
+    .send({ "product_id": 50 })
+    .end(function (response) {
+      status = response.body.status;
+      assert.equal("Internal Server Errror", status);
+      done();
+    });
+  });
+
+  it('it should return Bad Request when no product id is sent', function(done) {
+    var status;
+    unirest.post(url)
+    .headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    })
+    .end(function (response) {
+      status = response.body;
+      assert.equal("Bad Request", status);
+      done();
+    });
+  });
 });
