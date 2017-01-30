@@ -13,6 +13,12 @@ cd Demo
 npm install
 ```
 
+## Run tests
+
+```bash
+npm test
+```
+
 ## Start demo
 
 ```bash
