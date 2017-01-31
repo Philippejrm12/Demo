@@ -15,7 +15,7 @@ var appServer = function () {
   //home page / products page
   app.get('/', function(req, res) {
     storage.init().then(function() {
-      storage.getItem('products') //Fetch all products
+      storage.getItem('products') //Get all products
       .then(function( products ) {
         var viewProducts = products || [];
         res.render('pages/index', { products : viewProducts });
@@ -28,7 +28,7 @@ var appServer = function () {
     var products = [];
     storage.init()
     .then(function() {
-      return storage.getItem('cart'); //Fetch all product in cart
+      return storage.getItem('cart'); //Get all product in cart
     })
     .then(function( products ) {
       products = products || [];
@@ -47,7 +47,7 @@ var appServer = function () {
     .then(function() {
       storage.getItem('products')
       .then(function( products ) {
-        product = _.find(products, function(product) { return product.id == product_id }) //Fetch a product using is id
+        product = _.find(products, function(product) { return product.id == product_id }) //Get a product using is id
         if(product) {
           res.render('pages/product', product);
         } else {
@@ -67,21 +67,21 @@ var appServer = function () {
 
       storage.init()
       .then(function() {
-        return storage.getItem('products'); //Fetch all products
+        return storage.getItem('products'); //Get all products
       })
       .then(function( products ) {
         var viewProducts = products;
-        var product = _.find(viewProducts, function(product) { return product.id == product_id }); //Fetch a product using is id
+        var product = _.find(viewProducts, function(product) { return product.id == product_id }); //Get a product using is id
         return product;
       })
       .then(function(product) {
         return Utils.addToCart(product); //Add product to cart
       })
       .then(function( response) {
-        return res.status(200).send(response); //Product has been successfuly add to cart
+        return res.status(200).send(response); //Product has been successfully add to cart
       })
       .catch(function ( err ) {
-        return res.status(500).send(err); //Product was not added in the cart
+        return res.status(500).send(err); //Product wasn't added in the cart
       });
     }
   });
@@ -93,7 +93,7 @@ var appServer = function () {
   app.listen(3000, function () {
     storage.init()
     .then(function() {
-      return storage.getItem('products'); //Fetch all products
+      return storage.getItem('products'); //Get all products
     })
     .then(function( products ) {
       if(!products){

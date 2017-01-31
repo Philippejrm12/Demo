@@ -7,7 +7,7 @@ module.exports = {
     return new Promise(function(resolve, reject) {
       storage.init()
       .then(function() {
-        return storage.getItem('cart');
+        return storage.getItem('cart'); // Get all products in cart
       })
       .then(function( cart ) {
         var shopCart = cart || [];
@@ -16,7 +16,7 @@ module.exports = {
           product.quantity = 1
           shopCart.push(product);
         } else {
-          shopCart[productIndex].quantity++;
+          shopCart[productIndex].quantity++; //increment quantity if product already in the cart
         }
         storage.setItem('cart', shopCart);
         resolve({ "status_code": 200, "status": "ok", "message": "Saved" });
@@ -41,7 +41,7 @@ module.exports = {
     ];
     storage.init()
     .then(function() {
-      return storage.setItem('products', products);
+      return storage.setItem('products', products); //Add products array to json file using products has an index
     })
     .then(function( response ) {
       console.log(products.length + " products have been saved");
