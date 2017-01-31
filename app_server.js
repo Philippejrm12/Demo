@@ -10,12 +10,12 @@ var appServer = function () {
   var app = express();
   app.use(express.static(__dirname + '/'));
   app.use(jsonParser);
-  app.set('view engine', 'ejs');
+  app.set('view engine', 'ejs'); //Set template engine
 
   //home page / products page
   app.get('/', function(req, res) {
     storage.init().then(function() {
-      storage.getItem('products')
+      storage.getItem('products') //Fetch all products
       .then(function( products ) {
         var viewProducts = products || [];
         res.render('pages/index', { products : viewProducts });
@@ -28,7 +28,7 @@ var appServer = function () {
     var products = [];
     storage.init()
     .then(function() {
-      return storage.getItem('cart');
+      return storage.getItem('cart'); //Fetch all product in cart
     })
     .then(function( products ) {
       products = products || [];
@@ -47,7 +47,7 @@ var appServer = function () {
     .then(function() {
       storage.getItem('products')
       .then(function( products ) {
-        product = _.find(products, function(product) { return product.id == product_id })
+        product = _.find(products, function(product) { return product.id == product_id }) //Fetch a product using is id
         if(product) {
           res.render('pages/product', product);
         } else {
@@ -63,25 +63,25 @@ var appServer = function () {
     if (!req.body.product_id) {
       return res.sendStatus(400);
     } else {
-      var product_id = req.body.product_id;
+      var product_id = req.body.product_id; //Get product id from ajax call
 
       storage.init()
       .then(function() {
-        return storage.getItem('products');
+        return storage.getItem('products'); //Fetch all products
       })
       .then(function( products ) {
         var viewProducts = products;
-        var product = _.find(viewProducts, function(product) { return product.id == product_id });
+        var product = _.find(viewProducts, function(product) { return product.id == product_id }); //Fetch a product using is id
         return product;
       })
       .then(function(product) {
-        return Utils.addToCart(product);
+        return Utils.addToCart(product); //Add product to cart
       })
       .then(function( response) {
-        return res.status(200).send(response);
+        return res.status(200).send(response); //Product has been successfuly add to cart
       })
       .catch(function ( err ) {
-        return res.status(500).send(err);
+        return res.status(500).send(err); //Product was not added in the cart
       });
     }
   });
@@ -93,11 +93,11 @@ var appServer = function () {
   app.listen(3000, function () {
     storage.init()
     .then(function() {
-      return storage.getItem('products');
+      return storage.getItem('products'); //Fetch all products
     })
     .then(function( products ) {
       if(!products){
-        Utils.loadData();
+        Utils.loadData(); //Load products in json file(database)
       }
     });
     console.log('Server in on http://localhost:3000/');
