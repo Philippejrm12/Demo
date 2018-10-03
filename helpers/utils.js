@@ -38,6 +38,7 @@ module.exports = {
       { id: 7, name: 'Car', description: 'Mini cooper', price: '500', image: 'http://lorempixel.com/400/200/transport/8/' },
       { id: 8, name: 'Train', description: 'Trip to Quebec', price: '12' , image: 'http://lorempixel.com/400/200/transport/9/' },
       { id: 9, name: 'Motocycle', description: '2 laps on a motocycle', price: '22', image: 'http://lorempixel.com/400/200/transport/10/' },
+      { id: 10, name: 'MTG booster pack', description: 'A Magic:The Gathering booster pack containing a bunch of goodies', price: '2', image: 'https://picsum.photos/400/200' }
     ];
     storage.init()
     .then(function() {
