@@ -19,7 +19,7 @@ module.exports = {
           shopCart[productIndex].quantity++; //increment quantity if product already in the cart
         }
         storage.setItem('cart', shopCart);
-        resolve({ "status_code": 200, "status": "ok", "message": "Saved" });
+        resolve({ "status_code": 200, "status": "ok", "message": "Product saved" });
       })
       .catch(function( err ) {
         reject({ "status_code": 500, "status": "Internal Server Errror", "message": err.message });
